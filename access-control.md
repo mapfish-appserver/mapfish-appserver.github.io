@@ -1,10 +1,10 @@
 ---
 layout: architect
-title: Acess control
+title: Access control
 ---
 
-Acess control
-=============
+Access control
+==============
 
 Role concept
 ------------
