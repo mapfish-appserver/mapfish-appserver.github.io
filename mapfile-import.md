@@ -106,11 +106,11 @@ Import the mapfile into a new topic:
 <!--
 Mapfile Import
 
-Für das Ausführen eines Mapfile Imports wird die Ruby MapScript Bibliothek benötigt. Diese ist im Moment nur unter Linux binär verfügbar (Paket libmapscript-ruby).
+Für das Ausführen eines Mapfile Imports wird die Ruby MapScript Bibliothek benoetigt. Diese ist im Moment nur unter Linux binär verfügbar (Paket libmapscript-ruby).
 
-rake mapfile:import_topic MAPFILE=mapserver/maps/intranet/FnsLWZH.map --trace
+    rake mapfile:import_topic MAPFILE=mapserver/maps/intranet/FnsLWZH.map
 
-Achtung: Es werden alle DB-Einträge des Topics und die Legenden- und Infofragmente auf dem produktiven Server ersetzt!
+Achtung: Es werden alle DB-Eintraege des Topics und die Legenden- und Infofragmente auf dem produktiven Server ersetzt!
 
 Ev. Name des neu generierten Topics am Ende der Topics-Tabelle verifizieren.
 
@@ -154,4 +154,65 @@ User (-> Gruppe) -> Rolle -> Topic
 
 Applikation neu starten (damit Kartenauswahl aktualisiert wird):
 
+-->
+
+<!--
+Symbolisieren von externen WMS mit SLD
+
+Ein externer WMS kann mit einem SLD neu symbolisiert werden.
+
+Dazu muss unter METADATA im entsprechenden Layer des Mapfiles folgende Zeile eingefügt werden:
+"wms_sld_url" "http://URL_TO_SLD"
+
+Das SLD im xml-Format muss an der angegebenen Stelle auf dem Web-Server abgelegt werden.
+Edit
+Beispiel für Smaragd-Gebiete in Bundesinvetare (BundInvZH.map):
+
+Originale Symbolisierung (ohne SLD) -> hellgrüne Flächenfüllung, dunkelgrüne dünne Umrandung
+Neue Symbolisierung (mit SLD) -> hellrote Flächenfüllung, dunkelrote dicke Umrandung
+Edit
+Mapfile
+
+  LAYER
+    NAME "smaragd-gebiete"
+    STATUS on
+    TYPE RASTER
+    CONNECTION "http://wms.geo.admin.ch/?"
+    CONNECTIONTYPE WMS
+    METADATA
+     "wms_srs"                 "EPSG:21781"
+     "wms_name"                "ch.bafu.schutzgebiete-smaragd"
+     "wms_server_version"      "1.1.1"
+     "wms_format"              "image/png"
+     "wms_sld_url"             "http://84.75.158.193/sld_polygon1_simple.xml"
+     "wms_title"               "Smaragd-Gebiete"
+     "wms_group_title"         "Schutzgebiete und Biotopinventare"
+     "gb_toc_sort"             "92"
+    END
+  END
+
+Edit
+SLD unter der Adresse "http://84.75.158.193/sld_polygon1_simple.xml"
+
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:se="http://www.opengis.net/se" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd">
+  <NamedLayer>
+    <se:Name>ch.bafu.schutzgebiete-smaragd</se:Name>
+    <UserStyle>
+      <se:Name>xxx</se:Name>
+      <se:FeatureTypeStyle>
+        <se:Rule>
+          <se:polygonSymbolizer>
+            <se:fill>
+              <se:SvgParameter name="fill">#ff6432</se:SvgParameter>
+            </se:fill>
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#ff0000</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">5</se:SvgParameter>
+            </se:Stroke>
+          </se:polygonSymbolizer>
+        </se:Rule>
+      </se:FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>
 -->
