@@ -4,13 +4,16 @@ title: Printing
 ---
 
 Printing
---------
+========
+
+Mapfish Print
+-------------
 
 <!--
-Drucken
+config/print.yml
 
 Bezeichnung KARTENNAME: Topic-Name
-Edit
+
 Disclaimer für Footer
 
 Der Standardtext für den Disclaimer befindet sich in der Datei app/views/topics/_print_disclaimer.txt
@@ -21,6 +24,7 @@ Wenn eine spezifische Textdatei für ein Topic existiert, wird deren Inhalt für
 
 
 JasperReports
+-------------
 
 Mit dem printreportsadd Event können Reports zum PrintPanel hinzugefügt werden.
 

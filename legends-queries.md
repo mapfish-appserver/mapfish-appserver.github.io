@@ -40,6 +40,12 @@ Customizing
 
 For customizing these files, you can put templates with the same file name in `app/views/topics/custom/` resp. `app/views/layers/custom/<layername>/`. You should not edit the generated files, because these will be overwritten when running the rake task again.
 
+Templates used by rake task:
+-    tasks/templates/_infotable_auto.html.erb
+-    tasks/templates/_infotable_horizontal.html.erb
+-    tasks/templates/_infotable_vertical.html.erb
+-    tasks/templates/themekl-default.gif
+
 <!--
 More hints:
 

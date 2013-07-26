@@ -170,7 +170,7 @@ Beispiel für Smaragd-Gebiete in Bundesinvetare (BundInvZH.map):
 
 Originale Symbolisierung (ohne SLD) -> hellgrüne Flächenfüllung, dunkelgrüne dünne Umrandung
 Neue Symbolisierung (mit SLD) -> hellrote Flächenfüllung, dunkelrote dicke Umrandung
-Edit
+
 Mapfile
 
   LAYER
