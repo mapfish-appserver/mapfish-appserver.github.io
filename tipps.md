@@ -46,6 +46,6 @@ Massstabsunabhaengige Selektion
 Damit die Markierung eines Features in der Karte immer angezeigt wird (unabhängig vom Massstabsbereich des Layers), wie folgt vorgehen:
 
 - Darstellungsmassstab des Layers festsetzen
-- Rake Task durchführen --> Masstabsbereich für Infoabfrage wird in Layers Tabelle eingefüllt
-- nach Rake Task in Map-File Massstabsbereich auskommentieren --> Markierung eines Features wird in der Karte masstabsunabhängig angezeigt
+- Rake Task durchführen -> Masstabsbereich für Infoabfrage wird in Layers Tabelle eingefüllt
+- nach Rake Task in Map-File Massstabsbereich auskommentieren -> Markierung eines Features wird in der Karte masstabsunabhängig angezeigt
 -->

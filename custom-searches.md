@@ -3,6 +3,16 @@ layout: architect
 title: Custom searches
 ---
 
+<!--
+Serverseitige Selektion
+
+    Ablauf:
+        Query mit Attributen und/oder Punkt
+        Resultat GeoJSON mit Attributen und Extent
+        OpenLayers macht Update auf Extent der Geometrie
+        WMS-Selektionslayer in OpenLayers mit SLD (Filter auf Objekt und Darstellung Selektion)
+-->
+
 Search rules
 ============
 
@@ -77,6 +87,50 @@ var search_configs = {
     "XXX": ["Gb41.view.search.GbXxxxxSearchPanel"],
     ...
 };
+-->
+
+<!--
+Locate query result
+-------------------
+
+Link auf Objekt
+
+Suche nach Parzelle(n) + BFS-Nr:
+
+    Modell erstellen: app/models/parcelarea.rb
+    In File config/initializers/search_rules.rb bei "LOCATERULES=" folgende Zeile einfügen:
+
+    'parz' => LocateRule.new('Parcelarea'),
+
+Aufruf: http://web.maps.zh.ch/?locate=parz&locations=261,AU4999
+
+Suche nach GVZ-NR + BFS-Nr:
+
+    Modell erstellen: app/models/gvz.rb
+    In File config/initializers/search_rules.rb bei "LOCATERULES=" folgende Zeile einfügen:
+
+    'gvz' => LocateRule.new('Gvz'),
+
+Aufruf: http://web.maps.zh.ch/?locate=gvz&locations=1,1000
+
+Suche nach 1 Attribut:
+
+    In File config/initializers/search_rules.rb bei "LOCATERULES=" eine Zeile einfügen:
+    Bsp. Sportanlagen:
+
+    'sportanlagen' => LocateRule.new('SearchModel', 'sportanlagen', 'linkid'),
+
+Aufruf: http://maps.zh.ch/?topic=SportanlagenZH&locate=sportanlagen&locations=30612
+
+Bsp. Forstreviere:
+
+'revier' => LocateRule.new('SearchModel', 'forstreviere', 'forevnr'),
+
+Aufruf: http://maps.zh.ch/?topic=WaldEGZH&locate=revier&locations=508
+
+Bsp. Fassungen:
+
+Aufruf: http://web.maps.zh.ch/?topic=AwelGrundWaMWZH&locate=fassung&locations=d%2017-0007
 -->
 
 <!--

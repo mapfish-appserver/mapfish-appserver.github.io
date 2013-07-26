@@ -53,3 +53,37 @@ Falls in Info-Abfrage auf Felder zugegriffen werden soll, welche in map-File nic
 Der Layertitel in der Infoabfrage kann im DB-Feld (Tabelle Layers) "title" überschrieben werden!
 
 -->
+
+<!--
+Problematische DB-Spaltennamen
+
+Es gibt Probleme beim Identify auf Tabellen mit bestimmten Spaltennamen.
+Teilweise gibt es ein Workaround, z.B. bei Spaltennamen 'id' (bei den Ident- und Alias-Fields auch "id" angeben), bei anderen
+muss die Spalte in der DB umbenannt werden.
+
+Liste der reservierten Spaltennamen:
+class
+created_at
+created_on
+updated_at
+updated_on
+lock_version
+id
+#{table_name}_count
+attribute
+-->
+
+<!--
+Abfrage von Attributen eines anderen Layers
+
+Bsp. AV-Karten
+Abfrage von Attributen des Layers "Bodenbedeckungsfläche innerhalb Liegenschaft" im Layer "Bodenbedeckung":
+
+<%= @results.last[1].first.flaechexy %>
+
+last= letzter layer. Oder [5] statt .last (=das fünfte an dieser Stelle gefundene Feature. Achtung: falls an dieser Stelle nur Features aus 2 Layers vorkommen, gibt es ein Problem...)
+[1] = 0=layer, 1=features, 2=bbox
+first= das erste aus der features liste
+
+Alle Layernamen auflisten: <%# Alle Layernamen auflisten: @results.collect{|r| r0.title }.inspect %>
+-->
