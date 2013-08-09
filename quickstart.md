@@ -57,7 +57,7 @@ mapconfig/maps.example.com:
         METADATA
           "wms_title"                  "Natural Earth"
           "wms_onlineresource"         "http://wms.example.com/naturalearth"
-          "wms_srs"                    "EPSG:4326 EPSG:3857"
+          "wms_srs"                    "EPSG:4326 EPSG:3857 EPSG:21781"
           "wms_extent"                 "-180 -90 180 90"
           "wms_feature_info_mime_type" "application/vnd.ogc.gml"
           'ows_enable_request'    '*'
@@ -104,6 +104,7 @@ mapconfig/maps.example.com:
           "gml_name_alias"                  "Name"
           "gml_pop_est_alias"               "Population"
         END
+        TEMPLATE "blank.html"
 
         EXTENT -180 -90 180 90
         #MINSCALEDENOM 1
@@ -112,8 +113,8 @@ mapconfig/maps.example.com:
         STATUS ON
         TYPE POLYGON
         CONNECTIONTYPE postgis
-        CONNECTION "dbname=mfdemo port=5432"
-        DATA "geom FROM countries"
+        CONNECTION "dbname=geodb port=5432"
+        DATA "wkb_geometry FROM countries USING UNIQUE ogc_fid"
 
         CLASS
           NAME 'All countries'
