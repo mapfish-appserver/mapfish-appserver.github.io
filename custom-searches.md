@@ -13,29 +13,10 @@ Serverseitige Selektion
         WMS-Selektionslayer in OpenLayers mit SLD (Filter auf Objekt und Darstellung Selektion)
 -->
 
-Search rules
-============
-
-Custom search rules are configured in `config/initializers/search_rules.rb`.
-
-An entry consists of a name identifying the search and a SearchRule constructor.
-
-Sample entry:
-
-    'parcel' =>
-      SearchRule.new( Parcel,
-      %w(geodb_oid bsname gemeinde lkx lky),
-      %w(Id Parzellen-Nr. Gemeinde X Y)),
-
+Custom searches
+===============
 
 <!--
-Hier mit Centroid und Bounding-Box
-
-    'gvz' =>
-      SearchRule.new( Gvz,
-      %w(geodb_oid gvznummer bfsnr Box2d(geom)),
-      %w())
-
 Implementation von Spezialsuchen.
 Schritte für die Suche nach Xxx:
 
@@ -57,19 +38,42 @@ Custom search models
 app/models/xxx.rb: Search model class inheriting `SearchModel`
 
 
-Example (`app/models/manhole.rb`):
+Example (`app/models/country.rb`):
 
-    class Manhole < SearchModel
-      self.table_name = 'tba_si_sse_schaechte_p'
+    class Country < SearchModel
+      self.table_name = 'countries'
       self.primary_key = 'geodb_oid'
 
       def self.query(fields, params)
-        manholes = self.select(fields)
-        manholes = manholes.where('manhole_nr ILIKE ?', "#{params[:manholenr]}")
-        {:features => manholes, :quality => 0}
+        countries = self.select(fields)
+        countries = countries.where('name ILIKE ?', "#{params[:name]}")
+        {:features => countries, :quality => 0}
       end
     end
 
+
+Search API
+----------
+
+Custom search rules are configured in `config/initializers/search_rules.rb`.
+
+An entry consists of a name identifying the search and a SearchRule constructor.
+
+Sample entry:
+
+    'country' =>
+      SearchRule.new( Country,
+        %w(ogc_fid name pop_est Box2d(wkb_geometry))
+      )
+
+
+After restart a search query like
+
+    http://0.0.0.0:3000/search/country.json?name=Switzerland
+
+returns the following JSON response:
+
+    {"success":true,"features":[{"ogc_fid":40,"name":"Switzerland","pop_est":"7604467.0","box2d":"BOX(5.95480920400016 45.820718486,10.4666268310001 47.8011660770001)"}],"quality":0}
 
 <!--
 Interface: Combobox und Panel
