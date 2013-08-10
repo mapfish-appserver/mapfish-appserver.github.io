@@ -3,6 +3,7 @@ layout: architect
 title: Custom searches
 ---
 
+<!--
 Serverseitige Selektion
 
     Ablauf:
@@ -10,10 +11,12 @@ Serverseitige Selektion
         Resultat GeoJSON mit Attributen und Extent
         OpenLayers macht Update auf Extent der Geometrie
         WMS-Selektionslayer in OpenLayers mit SLD (Filter auf Objekt und Darstellung Selektion)
+-->
 
 Custom searches
 ===============
 
+<!--
 Implementation von Spezialsuchen.
 Schritte für die Suche nach Xxx:
 
@@ -27,6 +30,7 @@ Schritte für die Suche nach Xxx:
     neue Files ins git aufnehmen (xxx.rb, GbXxxSearchComboBox.js, GbXxxSearchPanel.js
 
 Achtung: Die Sache funktioniert erst, wenn der (lokale) Server neu gestartet wird!
+-->
 
 Custom search models
 --------------------
@@ -71,6 +75,7 @@ returns the following JSON response:
 
     {"success":true,"features":[{"ogc_fid":40,"name":"Switzerland","pop_est":"7604467.0","box2d":"BOX(5.95480920400016 45.820718486,10.4666268310001 47.8011660770001)"}],"quality":0}
 
+<!--
 Interface: Combobox und Panel
 
 -   public/apps/gb41build/app/view/search/GbXxxxxSearchComboBox.js
@@ -86,7 +91,9 @@ Ergänzung der search_configs mit Topicname und zu aktivierender Klasse
         "XXX": ["Gb41.view.search.GbXxxxxSearchPanel"],
         ...
     };
+-->
 
+<!--
 Locate query result
 -------------------
 
@@ -128,7 +135,9 @@ Aufruf: http://maps.zh.ch/?topic=WaldEGZH&locate=revier&locations=508
 Bsp. Fassungen:
 
 Aufruf: http://web.maps.zh.ch/?topic=AwelGrundWaMWZH&locate=fassung&locations=d%2017-0007
+-->
 
+<!--
 LocateRule = Struct.new(:model, :layer, :search_field)
 
 LOCATERULES = {
@@ -142,3 +151,4 @@ LOCATERULES = {
   'gemeinden' => LocateRule.new('SearchModel', 'gemeindegrenzen', 'bfs')
 
 }
+-->
