@@ -19,7 +19,7 @@ and include mapfish\_appserver in your Gemfile:
 
 Also make sure, you have MapScript installed:
 
-    sudo apt-get install ruby-mapscript1.9.1
+    sudo apt-get install libmapscript-ruby1.9.1
 
 Setup the Mapfish project, initialize the application database:
 
@@ -107,8 +107,8 @@ mapconfig/maps.example.com:
         TEMPLATE "blank.html"
 
         EXTENT -180 -90 180 90
-        #MINSCALEDENOM 1
-        #MAXSCALEDENOM 500000.5
+        MINSCALEDENOM 1
+        MAXSCALEDENOM 500000000.5
 
         STATUS ON
         TYPE POLYGON
