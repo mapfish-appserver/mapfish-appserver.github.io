@@ -46,6 +46,7 @@ Setup a PostGIS database and load some data:
     wget http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries_lakes.zip
     unzip ne_10m_admin_0_countries_lakes.zip
     ogr2ogr -f PostgreSQL PG:"dbname=geodb" -nln countries -nlt MULTIPOLYGON ne_10m_admin_0_countries_lakes.shp
+    psql -d geodb -c "GRANT ALL ON countries TO PUBLIC"
 
 Create a mapfile naturalearth.map in the directory
 mapconfig/maps.example.com:
