@@ -85,53 +85,49 @@ Customization
 
 The `PrintController` can be subclassed to add report specific permission checks, set print parameters or customize the returned filename
 
-```ruby
-class MyAppPrintController < PrintController
+    class MyAppPrintController < PrintController
 
-  # check permission for printing, e.g. check params to limit reports to user roles
-  def check_permissions
-    true
-  end
+      # check permission for printing, e.g. check params to limit reports to user roles
+      def check_permissions
+        true
+      end
 
-  # add custom print params according to report type, e.g. add map and zoom to feature in custom reports
-  def set_custom_print_params(report, print_params)
-    case report
-    when "TopicName"
-      # add map and layer
-      layer_url = rewrite_wms_uri("#{wms_host}/TopicName", false)
-      print_params['attributes']['map'] = {
-        :dpi => print_params[:dpi],
-        :bbox => [669242, 223923, 716907, 283315],
-        :projection => 'EPSG:21781',
-        :layers => [
-          {
-            :type => 'WMS',
-            :baseURL => layer_url,
-            :layers => ['Layer1', 'Layer2'],
-            :imageFormat => 'image/png; mode=8bit',
-            :styles => [''],
-            :customParams => {
-              :TRANSPARENT => true,
-              :map_resolution => print_params['dpi']
-            }
+      # add custom print params according to report type, e.g. add map and zoom to feature in custom reports
+      def set_custom_print_params(report, print_params)
+        case report
+        when "TopicName"
+          # add map and layer
+          layer_url = rewrite_wms_uri("#{wms_host}/TopicName", false)
+          print_params['attributes']['map'] = {
+            :dpi => print_params[:dpi],
+            :bbox => [669242, 223923, 716907, 283315],
+            :projection => 'EPSG:21781',
+            :layers => [
+              {
+                :type => 'WMS',
+                :baseURL => layer_url,
+                :layers => ['Layer1', 'Layer2'],
+                :imageFormat => 'image/png; mode=8bit',
+                :styles => [''],
+                :customParams => {
+                  :TRANSPARENT => true,
+                  :map_resolution => print_params['dpi']
+                }
+              }
+            ]
           }
-        ]
-      }
+        end
+      end
+
+      # handler for sending custom report file, e.g. to customize filename depending on params
+      def send_custom_report(report, print_params, path, type, filename)
+        send_file path, :type => type, :disposition => 'attachment', :filename => filename
+      end
+
     end
-  end
-
-  # handler for sending custom report file, e.g. to customize filename depending on params
-  def send_custom_report(report, print_params, path, type, filename)
-    send_file path, :type => type, :disposition => 'attachment', :filename => filename
-  end
-
-end
-```
 
 Add routes to custom print controller to `config/routes.rb`
 
-```ruby
-  match 'print/info.:format' => "my_app_print#info"
-  match 'print/create' => "my_app_print#create", :via => :post
-  match 'print/:id' => "my_app_print#show"
-```
+    match 'print/info.:format' => "my_app_print#info"
+    match 'print/create' => "my_app_print#create", :via => :post
+    match 'print/:id' => "my_app_print#show"
